@@ -1,9 +1,32 @@
+/* 
+ * Learnings from the code at https://github.com/slugonamission/OAuth2/blob/master/
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "oauth2.h"
 
+/*
+ * GET /authorize?response_type=code&client_id=s6BhdRkqt3&state=xyz
+ *         &redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb HTTP/1.1
+ *             Host: server.example.com
+ *
+ * URL: <server>?response_type=code&client_id=<client_id>&redirect_uri=<uri>&scope=<scope>&state=<state>
+ */
 char* oauth2RequestAuthCode(oauth2Struct *os, char* authServer, char* scope, char* state) {
+	char* coreFmt = "%s?response_type=code&client_id=%s&redirect_uri=%s";
+	char* scopeFmt = "&scope=%s";
+	char* stateFmt = "&state=%s";
+
+	int coreLen = snprintf(NULL, 0, (const char*)coreFmt, authServer, os->client_id, os->redirectUrl) + 1;
+	int scopeLen = snprintf(NULL, 0, (const char*)scopeFmt, scope) + 1;
+	int stateLen = snprintf(NULL, 0, (const char*)stateFmt, state) + 1;
+
+	char* reqString = malloc((coreLen+scopeLen+stateLen - 3) *sizeof(char));
+	sprintf(reqString, (const char*)coreFmt, authServer, os->client_id, os->redirectUrl);
+	sprintf((char*)(reqString+(coreLen-1)), (const char*)scopeFmt, scope);
+	sprintf((char*)(reqString+(coreLen-1)+(stateLen-1)), (const char*)stateFmt, state);
+	return reqString;
 
 }
 
@@ -40,6 +63,15 @@ int main(int argc, char** argv) {
 	oauth2Struct *os = oauth2_init("clientId", "clientSecret");
 	oauth2ConfigureRedirectUrl(os, "http://abc.com");
 	char *redirectUrl = oauth2RequestAuthCode(os, "https://google.com/authorize", "Location", "INIT");
+	printf("\nRedirect URL: %s", redirectUrl);
+
+	char code[255];
+	printf("\nEnter the AuthToken: ");
+	scanf("%s", code);
+
+	// Now get the auth token using the Auth Code
+
+	// Now use the Access Token to access the Resource on behalf of the user
 
 	return 0;
 }

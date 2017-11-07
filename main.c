@@ -30,6 +30,13 @@ char* oauth2RequestAuthCode(oauth2Struct *os, char* authServer, char* scope, cha
 
 }
 
+/*
+ * Auth Code sent by the Auth Server to the User as a Redirect request
+ * HTTP/1.1 302 Found
+ *      Location: https://client.example.com/cb?code=SplxlOBeZQQYbYS6WxSbIA
+ *                     &state=xyz
+ */                     
+
 oauth2ConfigureRedirectUrl(oauth2Struct *os, char* url) {
 	int len;
 	len = strlen(url) + 1;
@@ -59,14 +66,31 @@ oauth2Struct* oauth2_init(char* client, char* secret) {
 }
 
 int main(int argc, char** argv) {
+	char msg1[255], msg2[255];
+	char client[255], secret[255];
 
-	oauth2Struct *os = oauth2_init("clientId", "clientSecret");
+	printf("\nOauth2 in Action..........");
+	printf("\nUser goes to a web site, and clicks on \'Login via Google\'");
+	printf("\nThis sends a GET request to Google requesting for an auth code");
+	printf("\nAuth Code params:");
+
+	printf("\n	Enter client id (clientId):");
+	fgets(msg1, 254, stdin);
+	if (msg1[0] == '\n') 
+		strcpy(client, "clientId");
+
+	printf("\n	Enter client secret(clientSecret):");
+	if (msg2[0] == '\n') 
+		strcpy(secret, "clientSecret");
+	fgets(msg2, 254, stdin);
+
+	oauth2Struct *os = oauth2_init(client, secret);
 	oauth2ConfigureRedirectUrl(os, "http://abc.com");
 	char *redirectUrl = oauth2RequestAuthCode(os, "https://google.com/authorize", "Location", "INIT");
-	printf("\nRedirect URL: %s", redirectUrl);
+	printf("\n\nPlease go to this url: \n%s\n", redirectUrl);
 
 	char code[255];
-	printf("\nEnter the AuthToken: ");
+	printf("\nFrom the Response, pick up the AuthToken and put it here: ");
 	scanf("%s", code);
 
 	// Now get the auth token using the Auth Code

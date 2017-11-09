@@ -17,6 +17,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
+#include "oauth2.h"
 #include "curl_request.h"
 #include <stdlib.h>
 #include <string.h>
@@ -68,13 +69,15 @@ void data_clean(data* d)
     }
 }
 
-char* curl_make_request(char* url, char* params)
+char* curl_make_request(char* url, char* params, char* accessToken, int oauth2) 
 {
     data* storage;
     data* curr_storage;
     CURL* handle;
     int data_len;
     char* retVal;
+	char *header = accessToken;
+	struct curl_slist *headers = NULL;
 
     assert(url != 0);
     assert(*url != 0);
@@ -83,10 +86,18 @@ char* curl_make_request(char* url, char* params)
     storage->idx = 0;
     storage->next = 0;
 
+	if (oauth2 == 1) {
+		headers = curl_slist_append(headers, header);
+		if (headers == NULL)
+			printf("\nError: Headers is NULL!");
+	}
     handle = curl_easy_init();
     curl_easy_setopt(handle, CURLOPT_URL, url);
     curl_easy_setopt(handle, CURLOPT_WRITEFUNCTION, curl_callback);
     curl_easy_setopt(handle, CURLOPT_WRITEDATA, storage);
+	if (oauth2 == 1) {
+    	curl_easy_setopt(handle, CURLOPT_HTTPHEADER, headers);
+	}
 
     //Do we need to add the POST parameters?
     if(params != NULL)

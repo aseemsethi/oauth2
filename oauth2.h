@@ -38,6 +38,8 @@ typedef struct _oauth2Struct {
 	char*		client_secret;
 	char*		redirectUrl;
 	char*		authCode;
+	char*		accessToken;
+	int 		accessTokenLen;
 	oauth2Err	error;
 } oauth2Struct;
 

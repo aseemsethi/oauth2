@@ -28,6 +28,6 @@ typedef struct _data {
     int idx;
 } data;
 
-char* curl_make_request(char* url, char* params);
+char* curl_make_request(char* url, char* params, char *accessToken, int token);
 
 #endif

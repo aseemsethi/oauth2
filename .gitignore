@@ -1,3 +1,6 @@
-oauth2
+./oauth2
 core
 a.out
+main.o
+oauth2
+curl_request.o

@@ -201,7 +201,7 @@ oauth2Struct* oauth2_init(char* client, char* secret) {
  * "auth_uri":"https://accounts.google.com/o/oauth2/auth",
  * "token_uri":"https://accounts.google.com/o/oauth2/token",
  * "auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs",
- * "client_secret":"tWDvRWNQLtL-erzM8mQva_K7",
+ * "client_secret":"xxxxx",
  * "redirect_uris":["http://aseemsethi.example.com/oauth2"],
  * "javascript_origins":["http://aseemsethi.example.com"]}}
  */
@@ -228,7 +228,7 @@ int main(int argc, char** argv) {
 	printf("\n	Enter client secret(clientSecret):");
 	fgets(msg2, 254, stdin);
 	if (msg2[0] == '\n') 
-		strcpy(secret, "tWDvRWNQLtL-erzM8mQva_K7");
+		strcpy(secret, "xxxxx");
 	else {
 		// remove the trailing \n put by fgets
 		strtok(msg2, "\n");

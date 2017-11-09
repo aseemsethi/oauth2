@@ -17,7 +17,7 @@ https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=681355
 From the Response, pick up the AuthToken and put it here: 4/Zkx5zJ_Y72oY5k4G9pBfLOMwsAojaCsYlcyftq-y3FA#
 
  redirectUrl: http://localhost/oauth2callback
- Making an Access Token request: grant_type=authorization_code&client_id=681355735342-echlhpgf36phisuk13kcosd4em5q4ois.apps.googleusercontent.com&client_secret=tWDvRWNQLtL-erzM8mQva_K7&code=4/Zkx5zJ_Y72oY5k4G9pBfLOMwsAojaCsYlcyftq-y3FA#&redirect_uri=http://localhost/oauth2callback
+ Making an Access Token request: grant_type=authorization_code&client_id=681355735342-echlhpgf36phisuk13kcosd4em5q4ois.apps.googleusercontent.com&client_secret=xxxxx&code=4/Zkx5zJ_Y72oY5k4G9pBfLOMwsAojaCsYlcyftq-y3FA#&redirect_uri=http://localhost/oauth2callback
 {
  "access_token": "ya29.Glz_BN4dxcGEVMLnlnzD5VYs7DVOB7lP-b6zyV82zf7ALQja6Jb9utxgz7B62LNMFd29C-WNshwoU6molbD66Cr-jN466pKPJu8TVB9OroGQD8_Q_O3bTR-XnPm7zg",
  "token_type": "Bearer",

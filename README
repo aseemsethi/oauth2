@@ -14,7 +14,10 @@ Auth Code params:
 Please go to this url in browser: 
 https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=681355735342-echlhpgf36phisuk13kcosd4em5q4ois.apps.googleusercontent.com&redirect_uri=http://localhost/oauth2callback&scope=https://www.googleapis.com/auth/userinfo.email&state=INIT
 
-From the Response, pick up the AuthToken and put it here: 4/Zkx5zJ_Y72oY5k4G9pBfLOMwsAojaCsYlcyftq-y3FA#
+The response will be of the type - 
+http://localhost/oauth2callback?state=INIT&code=4/Zkx5zJ_Y72oY5k4G9pBfLOMwsAojaCsYlcyftq-y3FA#
+
+From the above Response, pick up the AuthToken and put it here: 4/Zkx5zJ_Y72oY5k4G9pBfLOMwsAojaCsYlcyftq-y3FA#
 
  redirectUrl: http://localhost/oauth2callback
  Making an Access Token request: grant_type=authorization_code&client_id=681355735342-echlhpgf36phisuk13kcosd4em5q4ois.apps.googleusercontent.com&client_secret=xxxxx&code=4/Zkx5zJ_Y72oY5k4G9pBfLOMwsAojaCsYlcyftq-y3FA#&redirect_uri=http://localhost/oauth2callback
@@ -46,4 +49,12 @@ Resource Response: {
  "gender": "male"
 }
 sm
+======================================
+If we use the Auth token more than once, it works if it is done quickly enough, in 1-2 sec. Else, it gives the following error on reuse - 
+
+ Making an Access Token request: grant_type=authorization_code&client_id=681355735342-echlhpgf36phisuk13kcosd4em5q4ois.apps.googleusercontent.com&client_secret=xxxx&code=4/zKNpjbh3wOa4piREvzoYoe1jUH8Jga0rh5ckKAIg5DQ#&redirect_uri=http://localhost/oauth2callback
+{
+ "error": "invalid_grant",
+ "error_description": "Code was already redeemed."
+}
 
